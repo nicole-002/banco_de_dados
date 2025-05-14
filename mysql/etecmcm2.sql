@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Maio-2025 às 17:36
+-- Tempo de geração: 14-Maio-2025 às 17:45
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.1.2
 
@@ -63,6 +63,22 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Extraindo dados da tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id_produto`, `nome`, `preco`, `quant`, `marca`, `id_categoria`) VALUES
+(1, 'Sabão em pó', '30.50', 50, 'OMO', 1),
+(2, 'Detergente', '3.50', 10, 'Ypê', 1),
+(4, 'Desinfetante', '10.80', 30, 'Búfalo', 1),
+(5, 'Pasta de dente', '2.50', 120, 'Colgate', 4),
+(6, 'Sabonete líquido', '7.50', 50, 'Lux', 4),
+(7, 'Linguiça temperada', '22.90', 30, 'Sadia', 5),
+(8, 'Costela bovina', '36.90', 30, 'Friboi', 5),
+(9, 'Leite fermentado', '7.90', 40, 'Chamyto', 6),
+(10, 'Iogurte', '12.90', 40, 'Chamyto', 6),
+(11, 'Refrigerante', '10.50', 50, 'Fanta', 7);
+
+--
 -- Índices para tabelas despejadas
 --
 
@@ -93,7 +109,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Restrições para despejos de tabelas
