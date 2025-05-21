@@ -1,0 +1,310 @@
+DDL -> use, create, show, describe, alter
+
+Microsoft Windows [versão 10.0.19043.1620]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\LAB4>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 10.4.22-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| etecmcm2           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use etecmcm2
+Database changed
+MariaDB [etecmcm2]> show tables;
++--------------------+
+| Tables_in_etecmcm2 |
++--------------------+
+| categorias         |
+| produtos           |
++--------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> describe produtos;
++--------------+---------------+------+-----+---------+----------------+
+| Field        | Type          | Null | Key | Default | Extra          |
++--------------+---------------+------+-----+---------+----------------+
+| id_produto   | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome         | varchar(255)  | YES  |     | NULL    |                |
+| preco        | decimal(10,2) | YES  |     | NULL    |                |
+| quant        | int(11)       | YES  |     | NULL    |                |
+| marca        | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria | int(11)       | YES  | MUL | NULL    |                |
++--------------+---------------+------+-----+---------+----------------+
+6 rows in set (0.014 sec)
+
+MariaDB [etecmcm2]> alter table produtos add unidade_medida varchar(10);
+Query OK, 0 rows affected (0.022 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [etecmcm2]> select from * produtos;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from * produtos' at line 1
+MariaDB [etecmcm2]> select from * produtos
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from * produtos' at line 1
+MariaDB [etecmcm2]> select * from produtos;
++------------+--------------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca   | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+|          1 | Sabão em pó        | 30.50 |    50 | OMO     |            1 | NULL           |
+|          2 | Detergente         |  3.50 |    10 | Ypê     |            1 | NULL           |
+|          4 | Desinfetante       | 10.80 |    30 | Búfalo  |            1 | NULL           |
+|          5 | Pasta de dente     |  2.50 |   120 | Colgate |            4 | NULL           |
+|          6 | Sabonete líquido   |  7.50 |    50 | Lux     |            4 | NULL           |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia   |            5 | NULL           |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi  |            5 | NULL           |
+|          9 | Leite fermentado   |  7.90 |    40 | Chamyto |            6 | NULL           |
+|         10 | Iogurte            | 12.90 |    40 | Chamyto |            6 | NULL           |
+|         11 | Refrigerante       | 10.50 |    50 | Fanta   |            7 | NULL           |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+10 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> update produtos set unidade_medida = "un" where id_categoria = 1;
+Query OK, 3 rows affected (0.012 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+MariaDB [etecmcm2]> select * from produtos;
++------------+--------------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca   | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+|          1 | Sabão em pó        | 30.50 |    50 | OMO     |            1 | un             |
+|          2 | Detergente         |  3.50 |    10 | Ypê     |            1 | un             |
+|          4 | Desinfetante       | 10.80 |    30 | Búfalo  |            1 | un             |
+|          5 | Pasta de dente     |  2.50 |   120 | Colgate |            4 | NULL           |
+|          6 | Sabonete líquido   |  7.50 |    50 | Lux     |            4 | NULL           |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia   |            5 | NULL           |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi  |            5 | NULL           |
+|          9 | Leite fermentado   |  7.90 |    40 | Chamyto |            6 | NULL           |
+|         10 | Iogurte            | 12.90 |    40 | Chamyto |            6 | NULL           |
+|         11 | Refrigerante       | 10.50 |    50 | Fanta   |            7 | NULL           |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+10 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> update produtos set unidade_medida = "kg" where id_categoria = 5;
+Query OK, 2 rows affected (0.011 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [etecmcm2]> update produtos set unidade_medida = "ml" where id_categoria = 7;
+Query OK, 1 row affected (0.011 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [etecmcm2]> update produtos set unidade_medida = "ml" where id_categoria = 6;
+Query OK, 2 rows affected (0.004 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [etecmcm2]> select * from produtos;
++------------+--------------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca   | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+|          1 | Sabão em pó        | 30.50 |    50 | OMO     |            1 | un             |
+|          2 | Detergente         |  3.50 |    10 | Ypê     |            1 | un             |
+|          4 | Desinfetante       | 10.80 |    30 | Búfalo  |            1 | un             |
+|          5 | Pasta de dente     |  2.50 |   120 | Colgate |            4 | NULL           |
+|          6 | Sabonete líquido   |  7.50 |    50 | Lux     |            4 | NULL           |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia   |            5 | kg             |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi  |            5 | kg             |
+|          9 | Leite fermentado   |  7.90 |    40 | Chamyto |            6 | ml             |
+|         10 | Iogurte            | 12.90 |    40 | Chamyto |            6 | ml             |
+|         11 | Refrigerante       | 10.50 |    50 | Fanta   |            7 | ml             |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+10 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> select * from produtos;
++------------+--------------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca   | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+|          1 | Sabão em pó        | 30.50 |    50 | OMO     |            1 | un             |
+|          2 | Detergente         |  3.50 |    10 | Ypê     |            1 | un             |
+|          4 | Desinfetante       | 10.80 |    30 | Búfalo  |            1 | un             |
+|          5 | Pasta de dente     |  2.50 |   120 | Colgate |            4 | NULL           |
+|          6 | Sabonete líquido   |  7.50 |    50 | Lux     |            4 | NULL           |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia   |            5 | kg             |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi  |            5 | kg             |
+|          9 | Leite fermentado   |  7.90 |    40 | Chamyto |            6 | ml             |
+|         10 | Iogurte            | 12.90 |    40 | Chamyto |            6 | ml             |
+|         11 | Refrigerante       | 10.50 |    50 | Fanta   |            7 | ml             |
++------------+--------------------+-------+-------+---------+--------------+----------------+
+10 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select nome from produtos;
++--------------------+
+| nome               |
++--------------------+
+| Sabão em pó        |
+| Detergente         |
+| Desinfetante       |
+| Pasta de dente     |
+| Sabonete líquido   |
+| Linguiça temperada |
+| Costela bovina     |
+| Leite fermentado   |
+| Iogurte            |
+| Refrigerante       |
++--------------------+
+10 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where marca= Chamyto;
+ERROR 1054 (42S22): Unknown column 'Chamyto' in 'where clause'
+MariaDB [etecmcm2]> select * from produtos where marca= "Chamyto";
++------------+------------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome             | preco | quant | marca   | id_categoria | unidade_medida |
++------------+------------------+-------+-------+---------+--------------+----------------+
+|          9 | Leite fermentado |  7.90 |    40 | Chamyto |            6 | ml             |
+|         10 | Iogurte          | 12.90 |    40 | Chamyto |            6 | ml             |
++------------+------------------+-------+-------+---------+--------------+----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where preco>20;
++------------+--------------------+-------+-------+--------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca  | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+--------+--------------+----------------+
+|          1 | Sabão em pó        | 30.50 |    50 | OMO    |            1 | un             |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia  |            5 | kg             |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi |            5 | kg             |
++------------+--------------------+-------+-------+--------+--------------+----------------+
+3 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> select * from produtos where quant>=50;
++------------+------------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome             | preco | quant | marca   | id_categoria | unidade_medida |
++------------+------------------+-------+-------+---------+--------------+----------------+
+|          1 | Sabão em pó      | 30.50 |    50 | OMO     |            1 | un             |
+|          5 | Pasta de dente   |  2.50 |   120 | Colgate |            4 | NULL           |
+|          6 | Sabonete líquido |  7.50 |    50 | Lux     |            4 | NULL           |
+|         11 | Refrigerante     | 10.50 |    50 | Fanta   |            7 | ml             |
++------------+------------------+-------+-------+---------+--------------+----------------+
+4 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> select nome, preco from produtos order by preco asc limit 5;
++------------------+-------+
+| nome             | preco |
++------------------+-------+
+| Pasta de dente   |  2.50 |
+| Detergente       |  3.50 |
+| Sabonete líquido |  7.50 |
+| Leite fermentado |  7.90 |
+| Refrigerante     | 10.50 |
++------------------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select nome, preco from produtos order by preco desc limit 5;
++--------------------+-------+
+| nome               | preco |
++--------------------+-------+
+| Costela bovina     | 36.90 |
+| Sabão em pó        | 30.50 |
+| Linguiça temperada | 22.90 |
+| Iogurte            | 12.90 |
+| Desinfetante       | 10.80 |
++--------------------+-------+
+5 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> select count(*) as total_produtos from produtos;
++----------------+
+| total_produtos |
++----------------+
+|             10 |
++----------------+
+1 row in set (0.000 sec)
+
+MariaDB [etecmcm2]> select avg(preco) as preco_medio from produtos;
++-------------+
+| preco_medio |
++-------------+
+|   14.590000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [etecmcm2]> select nome, quant from produtos order by quant desc limit 1;
++----------------+-------+
+| nome           | quant |
++----------------+-------+
+| Pasta de dente |   120 |
++----------------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [etecmcm2]> select p.nome, c.nome_cat from produtos p join categorias c on p.id_catgoria = c.is_categoria;
+ERROR 1054 (42S22): Unknown column 'p.id_catgoria' in 'on clause'
+MariaDB [etecmcm2]> select p.nome, c.nome_cat from produtos p join catgorias c on p.id_categoria= c.id_categoria;
+ERROR 1146 (42S02): Table 'etecmcm2.catgorias' doesn't exist
+MariaDB [etecmcm2]> select p.nome, c.nome_cat from produtos p join categorias c on p.id_categoria= c.id_categoria;
++--------------------+------------+
+| nome               | nome_cat   |
++--------------------+------------+
+| Sabão em pó        | Limpeza    |
+| Detergente         | Limpeza    |
+| Desinfetante       | Limpeza    |
+| Pasta de dente     | Higiene    |
+| Sabonete líquido   | Higiene    |
+| Linguiça temperada | Açougue    |
+| Costela bovina     | Açougue    |
+| Leite fermentado   | Laticínios |
+| Iogurte            | Laticínios |
+| Refrigerante       | Bebidas    |
++--------------------+------------+
+10 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select p.nome, p.marca, p.preco from produtos p join caegorias c on p.id_categoria= c.id_categoria where c.nome_cat= 'Laticínios';
+ERROR 1146 (42S02): Table 'etecmcm2.caegorias' doesn't exist
+MariaDB [etecmcm2]> select p.nome, p.marca, p.preco from produtos p join categorias c on p.id_categoria= c.id_categoria where c.nome_cat= 'Laticínios';
++------------------+---------+-------+
+| nome             | marca   | preco |
++------------------+---------+-------+
+| Leite fermentado | Chamyto |  7.90 |
+| Iogurte          | Chamyto | 12.90 |
++------------------+---------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where preco between 10 and 20;
++------------+--------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome         | preco | quant | marca   | id_categoria | unidade_medida |
++------------+--------------+-------+-------+---------+--------------+----------------+
+|          4 | Desinfetante | 10.80 |    30 | Búfalo  |            1 | un             |
+|         10 | Iogurte      | 12.90 |    40 | Chamyto |            6 | ml             |
+|         11 | Refrigerante | 10.50 |    50 | Fanta   |            7 | ml             |
++------------+--------------+-------+-------+---------+--------------+----------------+
+3 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> select * from produtos where nome like 'p%';
++------------+----------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome           | preco | quant | marca   | id_categoria | unidade_medida |
++------------+----------------+-------+-------+---------+--------------+----------------+
+|          5 | Pasta de dente |  2.50 |   120 | Colgate |            4 | NULL           |
++------------+----------------+-------+-------+---------+--------------+----------------+
+1 row in set (0.000 sec)
+
+MariaDB [etecmcm2]> select distinct marca from produtos;
++---------+
+| marca   |
++---------+
+| OMO     |
+| Ypê     |
+| Búfalo  |
+| Colgate |
+| Lux     |
+| Sadia   |
+| Friboi  |
+| Chamyto |
+| Fanta   |
++---------+
+9 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]>
