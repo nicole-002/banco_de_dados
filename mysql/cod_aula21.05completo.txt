@@ -1,0 +1,341 @@
+Microsoft Windows [versão 10.0.19045.5854]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\User>cd C:\xampp2\mysql\bin
+
+C:\xampp2\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 62
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| etecmcm2           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> use etecmcm2
+Database changed
+MariaDB [etecmcm2]> show tables;
++--------------------+
+| Tables_in_etecmcm2 |
++--------------------+
+| categorias         |
+| produtos           |
++--------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> describe produtos;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| id_produto     | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome           | varchar(255)  | YES  |     | NULL    |                |
+| preco          | decimal(10,2) | YES  |     | NULL    |                |
+| quant          | int(11)       | YES  |     | NULL    |                |
+| marca          | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria   | int(11)       | YES  | MUL | NULL    |                |
+| unidade_medida | varchar(10)   | YES  |     | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+7 rows in set (0.011 sec)
+
+MariaDB [etecmcm2]>  insert into produtos (nome, preco, quant, marca, id_categoria, unidade_medida) values
+    -> ('Sardinha',5.90,49, 'Coqueiro', 2, 'gr');
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [etecmcm2]> select * from produtos;
++------------+--------------------+-------+-------+----------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca    | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+----------+--------------+----------------+
+|          1 | Sabão em pó        | 30.50 |    50 | OMO      |            1 | un             |
+|          2 | Detergente         |  3.50 |    10 | Ypê      |            1 | un             |
+|          4 | Desinfetante       | 10.80 |    30 | Búfalo   |            1 | un             |
+|          5 | Pasta de dente     |  2.50 |   120 | Colgate  |            4 | NULL           |
+|          6 | Sabonete líquido   |  7.50 |    50 | Lux      |            4 | NULL           |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia    |            5 | kg             |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi   |            5 | kg             |
+|          9 | Leite fermentado   |  7.90 |    40 | Chamyto  |            6 | ml             |
+|         10 | Iogurte            | 12.90 |    40 | Chamyto  |            6 | ml             |
+|         11 | Refrigerante       | 10.50 |    50 | Fanta    |            7 | ml             |
+|         12 | Sardinha           |  5.90 |    49 | Coqueiro |            2 | gr             |
++------------+--------------------+-------+-------+----------+--------------+----------------+
+11 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]>  insert into produtos (nome, preco, quant, marca, id_categoria, unidade_medida) values
+    -> ('Seleta de legumes',4.90, 60, 'Vitarela', 2, 'gr');
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [etecmcm2]>  insert into produtos (nome, preco, quant, marca, id_categoria, unidade_medida) values
+    -> ('Milho',4.90, 30, 'Bonara', 2, 'gr'),
+    -> ('Mussarela',21.90, 20, 'Presidente', 3, 'gr'),
+    -> ('Presunto',18.98, 19, 'Sadia', 3, 'gr'),
+    -> ('Queijo fresco',15.65, 4, 'Quatá', 3, 'gr'),
+    -> ('Escova de dente',7.50, 20, 'Condor', 4, 'uni'),
+    -> ('Peixe salmão',89.90, 22, 'Swift', 5, 'kl'),
+    -> ('Suco de uva',15.90, 35, 'Aurora', 7, 'ml'),
+    -> ('Chá gelado sabir lichia',5.90, 39, 'Yai', 7, 'ml');
+Query OK, 8 rows affected (0.012 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+MariaDB [etecmcm2]> select * from produtos;
++------------+-------------------------+-------+-------+------------+--------------+----------------+
+| id_produto | nome                    | preco | quant | marca      | id_categoria | unidade_medida |
++------------+-------------------------+-------+-------+------------+--------------+----------------+
+|          1 | Sabão em pó             | 30.50 |    50 | OMO        |            1 | un             |
+|          2 | Detergente              |  3.50 |    10 | Ypê        |            1 | un             |
+|          4 | Desinfetante            | 10.80 |    30 | Búfalo     |            1 | un             |
+|          5 | Pasta de dente          |  2.50 |   120 | Colgate    |            4 | NULL           |
+|          6 | Sabonete líquido        |  7.50 |    50 | Lux        |            4 | NULL           |
+|          7 | Linguiça temperada      | 22.90 |    30 | Sadia      |            5 | kg             |
+|          8 | Costela bovina          | 36.90 |    30 | Friboi     |            5 | kg             |
+|          9 | Leite fermentado        |  7.90 |    40 | Chamyto    |            6 | ml             |
+|         10 | Iogurte                 | 12.90 |    40 | Chamyto    |            6 | ml             |
+|         11 | Refrigerante            | 10.50 |    50 | Fanta      |            7 | ml             |
+|         12 | Sardinha                |  5.90 |    49 | Coqueiro   |            2 | gr             |
+|         13 | Seleta de legumes       |  4.90 |    60 | Vitarela   |            2 | gr             |
+|         14 | Milho                   |  4.90 |    30 | Bonara     |            2 | gr             |
+|         15 | Mussarela               | 21.90 |    20 | Presidente |            3 | gr             |
+|         16 | Presunto                | 18.98 |    19 | Sadia      |            3 | gr             |
+|         17 | Queijo fresco           | 15.65 |     4 | Quatá      |            3 | gr             |
+|         18 | Escova de dente         |  7.50 |    20 | Condor     |            4 | uni            |
+|         19 | Peixe salmão            | 89.90 |    22 | Swift      |            5 | kl             |
+|         20 | Suco de uva             | 15.90 |    35 | Aurora     |            7 | ml             |
+|         21 | Chá gelado sabir lichia |  5.90 |    39 | Yai        |            7 | ml             |
++------------+-------------------------+-------+-------+------------+--------------+----------------+
+20 rows in set (0.000 sec)
+
+MariaDB [etecmcm2]> select nome, preco from produtos;
++-------------------------+-------+
+| nome                    | preco |
++-------------------------+-------+
+| Sabão em pó             | 30.50 |
+| Detergente              |  3.50 |
+| Desinfetante            | 10.80 |
+| Pasta de dente          |  2.50 |
+| Sabonete líquido        |  7.50 |
+| Linguiça temperada      | 22.90 |
+| Costela bovina          | 36.90 |
+| Leite fermentado        |  7.90 |
+| Iogurte                 | 12.90 |
+| Refrigerante            | 10.50 |
+| Sardinha                |  5.90 |
+| Seleta de legumes       |  4.90 |
+| Milho                   |  4.90 |
+| Mussarela               | 21.90 |
+| Presunto                | 18.98 |
+| Queijo fresco           | 15.65 |
+| Escova de dente         |  7.50 |
+| Peixe salmão            | 89.90 |
+| Suco de uva             | 15.90 |
+| Chá gelado sabir lichia |  5.90 |
++-------------------------+-------+
+20 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where marca = 'Chamyto';
++------------+------------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome             | preco | quant | marca   | id_categoria | unidade_medida |
++------------+------------------+-------+-------+---------+--------------+----------------+
+|          9 | Leite fermentado |  7.90 |    40 | Chamyto |            6 | ml             |
+|         10 | Iogurte          | 12.90 |    40 | Chamyto |            6 | ml             |
++------------+------------------+-------+-------+---------+--------------+----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where preco > 20;
++------------+--------------------+-------+-------+------------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca      | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+------------+--------------+----------------+
+|          1 | Sabão em pó        | 30.50 |    50 | OMO        |            1 | un             |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia      |            5 | kg             |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi     |            5 | kg             |
+|         15 | Mussarela          | 21.90 |    20 | Presidente |            3 | gr             |
+|         19 | Peixe salmão       | 89.90 |    22 | Swift      |            5 | kl             |
++------------+--------------------+-------+-------+------------+--------------+----------------+
+5 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where quant <= 30;
++------------+--------------------+-------+-------+------------+--------------+----------------+
+| id_produto | nome               | preco | quant | marca      | id_categoria | unidade_medida |
++------------+--------------------+-------+-------+------------+--------------+----------------+
+|          2 | Detergente         |  3.50 |    10 | Ypê        |            1 | un             |
+|          4 | Desinfetante       | 10.80 |    30 | Búfalo     |            1 | un             |
+|          7 | Linguiça temperada | 22.90 |    30 | Sadia      |            5 | kg             |
+|          8 | Costela bovina     | 36.90 |    30 | Friboi     |            5 | kg             |
+|         14 | Milho              |  4.90 |    30 | Bonara     |            2 | gr             |
+|         15 | Mussarela          | 21.90 |    20 | Presidente |            3 | gr             |
+|         16 | Presunto           | 18.98 |    19 | Sadia      |            3 | gr             |
+|         17 | Queijo fresco      | 15.65 |     4 | Quatá      |            3 | gr             |
+|         18 | Escova de dente    |  7.50 |    20 | Condor     |            4 | uni            |
+|         19 | Peixe salmão       | 89.90 |    22 | Swift      |            5 | kl             |
++------------+--------------------+-------+-------+------------+--------------+----------------+
+10 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select nome, preco from produtos order by preco asc limit 5;
++-------------------+-------+
+| nome              | preco |
++-------------------+-------+
+| Pasta de dente    |  2.50 |
+| Detergente        |  3.50 |
+| Seleta de legumes |  4.90 |
+| Milho             |  4.90 |
+| Sardinha          |  5.90 |
++-------------------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select nome, preco from produtos order by preco desc limit 5;
++--------------------+-------+
+| nome               | preco |
++--------------------+-------+
+| Peixe salmão       | 89.90 |
+| Costela bovina     | 36.90 |
+| Sabão em pó        | 30.50 |
+| Linguiça temperada | 22.90 |
+| Mussarela          | 21.90 |
++--------------------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select count(*) as total_produtos from produtos;
++----------------+
+| total_produtos |
++----------------+
+|             20 |
++----------------+
+1 row in set (0.001 sec)
+
+MariaDB [etecmcm2]> select avg(preco) as preco_medio from produtos;
++-------------+
+| preco_medio |
++-------------+
+|   16.866500 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [etecmcm2]> select avg(quant) as quant_media from produtos;
++-------------+
+| quant_media |
++-------------+
+|     37.4000 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [etecmcm2]> select nome, quant from produtos order by quant desc limit 1;
++----------------+-------+
+| nome           | quant |
++----------------+-------+
+| Pasta de dente |   120 |
++----------------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [etecmcm2]> select p.nome, c.nome_cat from produtos p join categorias c on p.id_categoria = c.id_categoria;
++-------------------------+------------+
+| nome                    | nome_cat   |
++-------------------------+------------+
+| Sabão em pó             | Limpeza    |
+| Detergente              | Limpeza    |
+| Desinfetante            | Limpeza    |
+| Sardinha                | Enlatados  |
+| Seleta de legumes       | Enlatados  |
+| Milho                   | Enlatados  |
+| Mussarela               | Frios      |
+| Presunto                | Frios      |
+| Queijo fresco           | Frios      |
+| Pasta de dente          | Higiene    |
+| Sabonete líquido        | Higiene    |
+| Escova de dente         | Higiene    |
+| Linguiça temperada      | Açougue    |
+| Costela bovina          | Açougue    |
+| Peixe salmão            | Açougue    |
+| Leite fermentado        | Laticínios |
+| Iogurte                 | Laticínios |
+| Refrigerante            | Bebidas    |
+| Suco de uva             | Bebidas    |
+| Chá gelado sabir lichia | Bebidas    |
++-------------------------+------------+
+20 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select p.nome, p.marca, p.preco from produtos p join categorias c on p.id_categoria = c.id_categoria where c.nome_cat = 'Bebidas';
++-------------------------+--------+-------+
+| nome                    | marca  | preco |
++-------------------------+--------+-------+
+| Refrigerante            | Fanta  | 10.50 |
+| Suco de uva             | Aurora | 15.90 |
+| Chá gelado sabir lichia | Yai    |  5.90 |
++-------------------------+--------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select c.nome_cat, count(*) as total_produtos from produtos p join categorias c on p.id_categoria = c.id_categoria group by c.nome_cat;
++------------+----------------+
+| nome_cat   | total_produtos |
++------------+----------------+
+| Açougue    |              3 |
+| Bebidas    |              3 |
+| Enlatados  |              3 |
+| Frios      |              3 |
+| Higiene    |              3 |
+| Laticínios |              2 |
+| Limpeza    |              3 |
++------------+----------------+
+7 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where preco between 10 and 20;
++------------+---------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome          | preco | quant | marca   | id_categoria | unidade_medida |
++------------+---------------+-------+-------+---------+--------------+----------------+
+|          4 | Desinfetante  | 10.80 |    30 | Búfalo  |            1 | un             |
+|         10 | Iogurte       | 12.90 |    40 | Chamyto |            6 | ml             |
+|         11 | Refrigerante  | 10.50 |    50 | Fanta   |            7 | ml             |
+|         16 | Presunto      | 18.98 |    19 | Sadia   |            3 | gr             |
+|         17 | Queijo fresco | 15.65 |     4 | Quatá   |            3 | gr             |
+|         20 | Suco de uva   | 15.90 |    35 | Aurora  |            7 | ml             |
++------------+---------------+-------+-------+---------+--------------+----------------+
+6 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select * from produtos where nome like 'P%';
++------------+----------------+-------+-------+---------+--------------+----------------+
+| id_produto | nome           | preco | quant | marca   | id_categoria | unidade_medida |
++------------+----------------+-------+-------+---------+--------------+----------------+
+|          5 | Pasta de dente |  2.50 |   120 | Colgate |            4 | NULL           |
+|         16 | Presunto       | 18.98 |    19 | Sadia   |            3 | gr             |
+|         19 | Peixe salmão   | 89.90 |    22 | Swift   |            5 | kl             |
++------------+----------------+-------+-------+---------+--------------+----------------+
+3 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> select distinct marca from produtos:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':' at line 1
+MariaDB [etecmcm2]> select distinct marca from produtos;
++------------+
+| marca      |
++------------+
+| OMO        |
+| Ypê        |
+| Búfalo     |
+| Colgate    |
+| Lux        |
+| Sadia      |
+| Friboi     |
+| Chamyto    |
+| Fanta      |
+| Coqueiro   |
+| Vitarela   |
+| Bonara     |
+| Presidente |
+| Quatá      |
+| Condor     |
+| Swift      |
+| Aurora     |
+| Yai        |
++------------+
+18 rows in set (0.001 sec)
+
+MariaDB [etecmcm2]> 
