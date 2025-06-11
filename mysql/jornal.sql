@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Jun-2025 às 17:32
+-- Tempo de geração: 11-Jun-2025 às 17:40
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.1.2
 
@@ -32,6 +32,19 @@ USE `jornal`;
 CREATE TABLE `categorias` (
   `id_categoria` int(11) NOT NULL,
   `nomecategoria` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `contato`
+--
+
+CREATE TABLE `contato` (
+  `id_contato` int(11) NOT NULL,
+  `contato` varchar(255) NOT NULL,
+  `idtipocont` int(11) DEFAULT NULL,
+  `idredator` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -84,6 +97,14 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
+-- Índices para tabela `contato`
+--
+ALTER TABLE `contato`
+  ADD PRIMARY KEY (`id_contato`),
+  ADD KEY `idtipocont` (`idtipocont`),
+  ADD KEY `idredator` (`idredator`);
+
+--
 -- Índices para tabela `noticia`
 --
 ALTER TABLE `noticia`
@@ -115,6 +136,12 @@ ALTER TABLE `categorias`
   MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `contato`
+--
+ALTER TABLE `contato`
+  MODIFY `id_contato` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `noticia`
 --
 ALTER TABLE `noticia`
@@ -135,6 +162,13 @@ ALTER TABLE `tipocontato`
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `contato`
+--
+ALTER TABLE `contato`
+  ADD CONSTRAINT `contato_ibfk_1` FOREIGN KEY (`idtipocont`) REFERENCES `tipocontato` (`id_tipocont`),
+  ADD CONSTRAINT `contato_ibfk_2` FOREIGN KEY (`idredator`) REFERENCES `redator` (`id_redator`);
 
 --
 -- Limitadores para a tabela `noticia`
